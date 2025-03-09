@@ -99,9 +99,11 @@ export class SubmitButton extends InputButton<Styles> {
   }
 
   private static createSubmitIconElement() {
-    const svgIconElement = SVGIconUtils.createSVGElement(SUBMIT_ICON_STRING);
-    svgIconElement.id = 'submit-icon';
-    return svgIconElement;
+    // const svgIconElement = SVGIconUtils.createSVGElement(SUBMIT_ICON_STRING);
+    // svgIconElement.id = 'submit-icon';
+    const icon = document.createElement('sl-icon');
+    icon.setAttribute('name', 'submit');
+    return icon;
   }
 
   private static createLoadingIconElement() {

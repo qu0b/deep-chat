@@ -32,11 +32,13 @@ export class InternalHTML extends HTMLElement {
       return value;
     };
     const setter = function (this: InternalHTML, newVal: string) {
+      // console.debug('setter called for', attributeName, newVal)
       value = newVal;
       if (attributeName) {
         // if the lower case version - assign the value to the actual property
         (this as unknown as GenericObject)[propertyKey] = newVal;
       } else {
+        // console.debug('rendering attempt', attributeName, newVal)
         RenderControl.attemptRender(this);
       }
     };
