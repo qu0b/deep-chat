@@ -21,6 +21,7 @@ import {CustomStyle} from '../../../types/styles';
 import {TextInputEl} from './textInput/textInput';
 import {Messages} from '../messages/messages';
 import {DeepChat} from '../../../deepChat';
+import {Browser} from '../../../utils/browser/browser';
 
 export type Buttons = {
   [key in BUTTON_TYPES]?: {button: InputButton; fileType?: FileAttachmentsType};
@@ -38,6 +39,7 @@ export class Input {
       buttons.microphone = {button: new SpeechToText(deepChat, textInput, messages.addNewErrorMessage.bind(messages))};
     }
     const submitButton = new SubmitButton(deepChat, textInput, messages, serviceIO, fileAts, buttons);
+
     textInput.submit = submitButton.submitFromInput.bind(submitButton);
     ValidationHandler.attach(deepChat, serviceIO, textInput, fileAts, submitButton);
     deepChat.submitUserMessage = submitButton.programmaticSubmit.bind(submitButton);

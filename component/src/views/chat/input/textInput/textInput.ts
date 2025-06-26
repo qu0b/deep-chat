@@ -26,6 +26,8 @@ export class TextInputEl {
     this.elementRef.appendChild(this.inputElementRef);
     deepChat.setPlaceholderText = this.setPlaceholderText.bind(this);
     deepChat.setPlaceholderText(this._config.placeholder?.text || 'Ask me anything!');
+    // Initialize visual viewport listener if the browser supports it
+
     setTimeout(() => {
       // in a timeout as deepChat._validationHandler initialised later
       TextInputEvents.add(this.inputElementRef, fileAts, this._config.characterLimit, deepChat._validationHandler);
@@ -60,13 +62,13 @@ export class TextInputEl {
 
   // this also similarly prevents scroll up
   public clear() {
-    const scrollY = window.scrollY;
+    // const scrollY = window.scrollY;
     if (!this.inputElementRef.classList.contains('text-input-disabled')) {
       Object.assign(this.inputElementRef.style, this._config.placeholder?.style);
       this.inputElementRef.textContent = '';
       FocusUtils.focusEndOfInput(this.inputElementRef);
     }
-    if (Browser.IS_CHROMIUM) window.scrollTo({top: scrollY});
+    // if (Browser.IS_CHROMIUM) window.scrollTo({top: scrollY});
   }
 
   private createInputElement() {
@@ -107,10 +109,13 @@ export class TextInputEl {
   private onBlur(focusStyle: CustomStyle, containerStyle?: CustomStyle) {
     StyleUtils.unsetStyle(this.elementRef, focusStyle);
     if (containerStyle) Object.assign(this.elementRef.style, containerStyle);
+
+    if (window.visualViewport && 'virtualKeyboard' in navigator && navigator.virtualKeyboard.hide) {
+      navigator.virtualKeyboard.hide();
+    }
   }
 
   private onKeydown(event: KeyboardEvent) {
-    // ctrlKey && shiftKey allow the creation of a new line
     if (event.key === KEYBOARD_KEY.ENTER && (event.ctrlKey || event.shiftKey)) {
       event.preventDefault();
       this.submit?.();
