@@ -111,7 +111,7 @@ export class TextInputEl {
 
   private onKeydown(event: KeyboardEvent) {
     // ctrlKey && shiftKey allow the creation of a new line
-    if (event.key === KEYBOARD_KEY.ENTER && !event.ctrlKey && !event.shiftKey) {
+    if (event.key === KEYBOARD_KEY.ENTER && (event.ctrlKey || event.shiftKey)) {
       event.preventDefault();
       this.submit?.();
     }
