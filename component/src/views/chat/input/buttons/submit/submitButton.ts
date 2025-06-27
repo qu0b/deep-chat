@@ -169,6 +169,7 @@ export class SubmitButton extends InputButton<Styles> {
   public async submitFromInput() {
     await this._fileAttachments.completePlaceholders();
     const uploadedFilesData = this._fileAttachments.getAllFileData();
+    this._textInput.blur();
     if (this._textInput.isTextInputEmpty()) {
       this.attemptSubmit({text: '', files: uploadedFilesData});
     } else {
@@ -197,6 +198,7 @@ export class SubmitButton extends InputButton<Styles> {
     await this.addNewMessage(content);
     if (!this._serviceIO.isWebModel()) this._messages.addLoadingMessage();
     this._textInput.clear();
+
     const filesData = content.files?.map((fileData) => fileData.file);
     const requestContents = {text: content.text === '' ? undefined : content.text, files: filesData};
     await this._serviceIO.callAPI(requestContents, this._messages);
