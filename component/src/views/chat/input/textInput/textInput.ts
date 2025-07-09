@@ -132,7 +132,6 @@ export class TextInputEl {
   }
 
   public blur() {
-    console.dir(this.inputElementRef);
     this.inputElementRef.blur();
   }
 
