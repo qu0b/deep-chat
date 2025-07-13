@@ -136,7 +136,7 @@ export class TextInputEl {
   }
 
   private onKeydown(event: KeyboardEvent) {
-    if (event.key === KEYBOARD_KEY.ENTER && (event.ctrlKey || event.shiftKey)) {
+    if (event.key === KEYBOARD_KEY.ENTER && !event.ctrlKey && !event.shiftKey && !Browser.IS_MOBILE) {
       event.preventDefault();
       this.submit?.();
       this.inputElementRef.blur();
