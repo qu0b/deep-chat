@@ -21,6 +21,7 @@ import {CustomStyle} from '../../../types/styles';
 import {TextInputEl} from './textInput/textInput';
 import {Messages} from '../messages/messages';
 import {DeepChat} from '../../../deepChat';
+import {Browser} from '../../../utils/browser/browser';
 
 export type Buttons = {
   [key in BUTTON_TYPE]?: {button: InputButton; fileType?: FileAttachmentsType};

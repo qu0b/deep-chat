@@ -10,6 +10,7 @@ import {Signals} from '../types/handler';
 import {Stream} from '../types/stream';
 import {DeepChat} from '../deepChat';
 import {Demo} from '../types/demo';
+import {HistoryMessage} from '../types/history';
 
 export interface RequestContents {
   text?: string;
@@ -45,6 +46,7 @@ export type ServiceFileTypes = {
 };
 
 export interface ServiceIO {
+  renderMessages(messages: Messages[]): unknown;
   key?: string;
 
   validateKeyProperty: boolean;
@@ -114,7 +116,7 @@ export interface ServiceIO {
 
   sessionId?: string;
 
-  fetchHistory?: () => Promise<Response[]> | Response[];
+  fetchHistory?: () => Promise<Response[]> | Response[] | Promise<HistoryMessage[]>;
 
   // mostly used for streaming to not close the stream when it makes another request
   asyncCallInProgress?: boolean;

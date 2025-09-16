@@ -101,9 +101,11 @@ export class SubmitButton extends InputButton<Styles> {
   }
 
   private static createSubmitIconElement() {
-    const svgIconElement = SVGIconUtils.createSVGElement(SUBMIT_ICON_STRING);
-    svgIconElement.id = 'submit-icon';
-    return svgIconElement;
+    // const svgIconElement = SVGIconUtils.createSVGElement(SUBMIT_ICON_STRING);
+    // svgIconElement.id = 'submit-icon';
+    const icon = document.createElement('sl-icon');
+    icon.setAttribute('name', 'submit');
+    return icon;
   }
 
   private static createLoadingIconElement() {
@@ -170,6 +172,7 @@ export class SubmitButton extends InputButton<Styles> {
   public async submitFromInput() {
     await this._fileAttachments.completePlaceholders();
     const uploadedFilesData = this._fileAttachments.getAllFileData();
+    this._textInput.blur();
     if (this._textInput.isTextInputEmpty()) {
       this.attemptSubmit({text: '', files: uploadedFilesData});
     } else {

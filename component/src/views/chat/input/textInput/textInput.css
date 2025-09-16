@@ -2,11 +2,11 @@
   background-color: white;
   width: 80%;
   display: flex;
-  border: 1px solid #0000001a;
+  /* border: 1px solid #0000001a; */
   border-radius: 5px;
   margin-top: 0.8em;
   margin-bottom: 0.8em;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 1px 12px;
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 1px 12px; */
   overflow-y: auto;
   max-height: 200px;
   position: relative;
@@ -42,6 +42,7 @@
   word-wrap: break-word;
   /* test in Safari using following text - seduijasiudj iasojd iasdjas oijdioa joisaj doij */
   line-break: auto;
+
   /* Use these properties to inline all of the text  */
   /* white-space: nowrap;
   overflow: hidden; */
@@ -54,6 +55,13 @@
   /* the combination of these two properties is used to automatically set the text width to the padding */
   overflow: overlay;
   width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  outline: none;
+  font-size: 16px;
+  color: black;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .text-input-inner-left-adjustment {
@@ -69,12 +77,11 @@
   user-select: none;
 }
 
-[contenteditable]:empty:before {
-  /* Has to be an attribute to be accessed by contenteditable pseusod element and pseudo classes */
+/* [contenteditable]:empty:before {
   content: attr(deep-chat-placeholder-text);
   pointer-events: none;
 }
 
 [contenteditable][textcolor]:empty:before {
   color: grey;
-}
+} */

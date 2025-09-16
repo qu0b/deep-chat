@@ -26,4 +26,7 @@ export class FireEvents {
     deepChat.onError?.(error);
     deepChat.dispatchEvent(new CustomEvent('error', {detail: error}));
   }
+  public static onHistoryLoaded(deepChat: DeepChat) {
+    deepChat.dispatchEvent(new CustomEvent('historyLoaded', {detail: deepChat}));
+  }
 }
