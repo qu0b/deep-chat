@@ -7,6 +7,7 @@ import {Legacy} from '../../../../utils/legacy/legacy';
 import {LoadingHistory} from './loadingHistory';
 import {DeepChat} from '../../../../deepChat';
 import {Messages} from '../messages';
+import {FireEvents} from '../../../../utils/events/fireEvents';
 
 export class History {
   private readonly _messages: Messages;
@@ -14,12 +15,18 @@ export class History {
   private _isLoading = false;
   private _isPaginationComplete = false;
   private _index = 0;
+  private _deepChat: DeepChat;
 
   constructor(deepChat: DeepChat, messages: Messages, serviceIO: ServiceIO) {
     this._messages = messages;
-    if (serviceIO.fetchHistory) this.fetchHistory(serviceIO.fetchHistory); // direct service
-    if (deepChat.loadHistory) this.setupLoadHistoryOnScroll(deepChat.loadHistory); // custom service
+    if (serviceIO.fetchHistory) {
+      this.fetchHistory(serviceIO.fetchHistory); // direct service
+    }
+    if (deepChat.loadHistory) {
+      this.setupLoadHistoryOnScroll(deepChat.loadHistory);
+    } // custom service
     this.setupInitialHistory(deepChat);
+    this._deepChat = deepChat;
   }
 
   private async fetchHistory(ioFetchHistory: Required<ServiceIO>['fetchHistory']) {
@@ -27,8 +34,9 @@ export class History {
     const history = await ioFetchHistory();
     this._messages.removeMessage(loadingElements);
     history.forEach((message) => this._messages.addAnyMessage(message, true));
+    FireEvents.onHistoryLoaded(this._deepChat);
     // https://github.com/OvidijusParsiunas/deep-chat/issues/84
-    setTimeout(() => ElementUtils.scrollToBottom(this._messages.elementRef), 0);
+    //setTimeout(() => ElementUtils.scrollToBottom(this._messages.elementRef), 0);
   }
 
   private processLoadedHistory(historyMessages: HistoryMessage[]) {
